@@ -88,6 +88,50 @@ Gets a car object based on supplied parameters. Returns first car that matches p
 - 200 : OK
 
 #### PUT /car/update
+Updates existing car record. Finds the record to update based on id
+##### Request Type
+- Method: PUT
+- Content-type: application/json
+##### Parameters
+###### id
+- required
+- int
+- Represents id of a record in a table you wish to update
+###### make
+- optional
+- string
+- length 100
+- Represents car make
+- Example: BMW, Mercedes, Lotus
+###### model
+- optional
+- string
+- length 100
+- Represents car make
+- Example: Model 3, 525d, C65AMG
+###### year
+- optional
+- int
+- length 100
+- Represents car year
+- Example: 1999, 2015, 2019
+###### assigned_type
+- optional
+- int
+- Driver: 1, Branch: 2
+- Represents type of assigned entity
+- Example: 1, 2
+###### assigned_id
+- optional
+- int
+- Represents id of assigned entity
+- Example: 7, 123, 15
+#### Response codes
+- 400 : Invalid Request, Missing Parameters
+- 404 : Car not found
+- 200 : Car record was updated
+
+
 #### DELETE /car/delete
 #### POST /car/assign
 
