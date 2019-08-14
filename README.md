@@ -4,6 +4,7 @@ This app was built as a part of Python backend challenge using Flask and postgre
 ## Car
 ### Methods
 #### POST /car/create
+Creates a car object and saves it to database.
 ##### Request Type
 - Method: POST
 - Content-type: application/json
@@ -37,7 +38,55 @@ This app was built as a part of Python backend challenge using Flask and postgre
 - int
 - Represents id of assigned entity
 - Example: 7, 123, 15
+#### Response codes
+- 400 : Invalid Request, Missing Parameters
+- 201 : Car created
 #### GET /car/get
+Gets a car object based on supplied parameters. Returns first car that matches parameters. Returns car not found in case no cars were found.
+##### Request Type
+- Method: GET
+- Content-type: application/json
+- Returns JSON
+##### Parameters
+###### id
+- optional
+- int
+- Represents id of a car in a database table
+- Example: 1, 25, 1234
+###### make
+- optional
+- string
+- length 100
+- Represents car make
+- Example: BMW, Mercedes, Lotus
+###### model
+- optional
+- string
+- length 100
+- Represents car make
+- Example: Model 3, 525d, C65AMG
+###### year
+- optional
+- int
+- length 100
+- Represents car year
+- Example: 1999, 2015, 2019
+###### assigned_type
+- optional
+- int
+- Driver: 1, Branch: 2
+- Represents type of assigned entity
+- Example: 1, 2
+###### assigned_id
+- optional
+- int
+- Represents id of assigned entity
+- Example: 7, 123, 15
+#### Response codes
+- 400 : Invalid request, Invalid parameters
+- 404 : Car Not Found
+- 200 : OK
+
 #### PUT /car/update
 #### DELETE /car/delete
 #### POST /car/assign
