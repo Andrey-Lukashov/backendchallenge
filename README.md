@@ -107,15 +107,19 @@ Gets a car object based on supplied parameters. Returns first car that matches p
 
 # Installation
 ## Update repo's
-sudo apt-get update
+- sudo apt-get update
+## Install Python
+- sudo apt-get install python3
+- sudo apt-get install python3-pip
+- sudo pip install virtualenv
 ## PostgreSQL
-sudo apt-get install postgresql
+- sudo apt-get install postgresql
 ## psycopg2 - PostgreSQL wrapper for Flask
-sudo apt-get install python-psycopg2
+- sudo apt-get install python-psycopg2
 ## libpq - postgresql interface
-sudo apt-get install libp
+- sudo apt-get install libp
 ## Python3 dependencies
-flask flask-sqlalchemy psycopg2 flask-migrate flask-script
+- sudo python3 install flask flask-sqlalchemy psycopg2 flask-migrate flask-script
 
 # PostgreSQL Setup
 ## Set Up User
