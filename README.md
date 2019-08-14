@@ -1,6 +1,6 @@
-# REST API
-This app was built as a part of Python backend challenge using Flask and postgresql. It is a service that 
-# Documentation
+# Python Backend Challenge
+This app was built as a part of Python backend challenge using Flask and postgresql. It is a service that lets you create drivers, cars and branches. Car can be assigned to a car or a branch.
+# API Documentation
 ## Car
 ### Methods
 #### POST /car/create
@@ -131,9 +131,20 @@ Updates existing car record. Finds the record to update based on id
 - 404 : Car not found
 - 200 : Car record was updated
 
-
 #### DELETE /car/delete
-#### POST /car/assign
+Deletes existing car record. Finds the record to update based on id
+##### Request Type
+- Method: PUT
+- Content-type: application/json
+##### Parameters
+###### id
+- required
+- int
+- Represents id of a record in a table you wish to update
+#### Response codes
+- 400 : Invalid Request, Missing Parameters
+- 404 : Car not found
+- 200 : Car deleted
 
 ## Branch
 ### Methods
