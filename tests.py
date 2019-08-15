@@ -189,7 +189,7 @@ class CarTestCase(unittest.TestCase):
 
         json_response = api_call(self, "GET", '/car/get', dict(assigned_type="twenty"), 200, True)
         self.assertEqual(json_response["status_code"], 400)
-        self.assertEqual(json_response["message"], 'Missing assigned_id')
+        self.assertEqual(json_response["message"], 'Invalid assigned_type')
 
         json_response = api_call(self, "GET", '/car/get', dict(assigned_type=3, assigned_id=1), 200, True)
         self.assertEqual(json_response["status_code"], 404)
