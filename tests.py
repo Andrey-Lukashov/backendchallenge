@@ -860,10 +860,32 @@ class HelpersTestCase(unittest.TestCase):
             db.create_all()
 
     def test_check_missing_good(self):
-        pass
+        """ Successful tests for missing fields check """
+        args = lambda: None
+        args.args = {"name": 'John'}
+        args_test = helpers.check_missing('args', args, 'name')
+        self.assertEqual(args_test, 'John')
+
+        lists = {"name": "Mary"}
+        args_test = helpers.check_missing('list', lists, 'name')
+        self.assertEqual(args_test, 'Mary')
 
     def test_check_missing_bad(self):
-        pass
+        """ Cases where missing fields check would raise exception and won't validate"""
+        args = lambda: None
+        args.args = {"city": 'London'}
+        with self.assertRaises(Exception) as context:
+            helpers.check_missing('args', args, 'name')
+        exception = context.exception
+        self.assertEqual(exception.args[0]["status_code"], 400)
+        self.assertEqual(exception.args[0]["message"], "Missing name")
+
+        lists = {"city": "Bristol"}
+        with self.assertRaises(Exception) as context:
+            helpers.check_missing('list', lists, 'name')
+        exception = context.exception
+        self.assertEqual(exception.args[0]["status_code"], 400)
+        self.assertEqual(exception.args[0]["message"], "Missing name")
 
     def test_validate_year_good(self):
         pass
