@@ -18,12 +18,18 @@ def create_app(config_name):
 
     @app.route('/car/create', methods=['POST'])
     def car_create():
+        """
+        Creates a record based on params supplied
+        Endpoint URL: /car/create
+        :return: JSON successful message or exception response
+        """
         if request.method == "POST":
             if request.data is None:
                 return jsonify({"status_code": 400, "message": "Invalid request"})
             request_data = request.data
 
             try:
+                # Find and validate required parameters in order to create car record
                 make = helpers.check_missing('list', request_data, 'make')
                 model = helpers.check_missing('list', request_data, 'model')
                 year = helpers.check_missing('list', request_data, 'year')
@@ -31,7 +37,11 @@ def create_app(config_name):
                 assigned_type = helpers.check_missing('list', request_data, 'assigned_type')
                 assigned_id = helpers.check_missing('list', request_data, 'assigned_id')
                 assigned_id = helpers.validate_int(assigned_id, 'assigned_id')
+
+                # Validate the assigned type and id, more logic for assigning in a helper function
                 assigned_type, assigned_id = helpers.validate_assigning(assigned_type, assigned_id)
+
+                # Create object and save it in the database
                 car = Car(make, model, year, assigned_type, assigned_id)
                 car.save()
                 return jsonify({"status_code": 201, "message": "Car created"})
@@ -159,18 +169,26 @@ def create_app(config_name):
 
     @app.route('/branch/create', methods=['POST'])
     def branch_create():
+        """
+        Creates a record based on params supplied
+        Endpoint URL: /branch/create
+        :return: JSON successful message or exception response
+        """
         if request.method == "POST":
             if request.data is None:
                 return jsonify({"status_code": 400, "message": "Invalid request"})
             request_data = request.data
 
             try:
+                # Find and validate required parameters in order to create branch record
                 city = helpers.check_missing('list', request_data, 'city')
                 city = helpers.validate_string(city, 'city')
                 postcode = helpers.check_missing('list', request_data, 'postcode')
                 postcode = helpers.validate_postcode(postcode)
                 capacity = helpers.check_missing('list', request_data, 'capacity')
                 capacity = helpers.validate_int(capacity, 'capacity')
+
+                # Create object and save it in the database
                 branch = Branch(city, postcode, capacity)
                 branch.save()
                 return jsonify({"status_code": 201, "message": "Branch created"})
@@ -284,21 +302,31 @@ def create_app(config_name):
 
     @app.route('/driver/create', methods=['POST'])
     def driver_create():
+        """
+        Creates a record based on params supplied
+        Endpoint URL: /driver/create
+        :return: JSON successful message or exception response
+        """
         if request.method == "POST":
             if request.data is None:
                 return jsonify({"status_code": 400, "message": "Invalid request"})
             request_data = request.data
 
             try:
+                # Find and validate required parameters in order to create driver record
                 first_name = helpers.check_missing('list', request_data, 'first_name')
                 first_name = helpers.validate_string(first_name, 'first_name')
+
+                # Middle name is optional for creating a driver
                 middle_name = None
                 if "middle_name" in request_data.keys():
                     middle_name = helpers.validate_string(request_data['middle_name'], 'middle_name')
                 last_name = helpers.check_missing('list', request_data, 'last_name')
                 last_name = helpers.validate_string(last_name, 'last_name')
                 dob = helpers.check_missing('list', request_data, 'dob')
-                dob = helpers.validate_dob(dob)
+                dob = helpers.validate_dob(dob)  # Only accepting drivers that are 18 or older
+
+                # Create object and save it in the database
                 driver = Driver(first_name, middle_name, last_name, dob)
                 driver.save()
                 return jsonify({"status_code": 201, "message": "Driver created"})
