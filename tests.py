@@ -888,16 +888,42 @@ class HelpersTestCase(unittest.TestCase):
         self.assertEqual(exception.args[0]["message"], "Missing name")
 
     def test_validate_year_good(self):
-        pass
+        """ Good passing validation tests for year function"""
+        year = 2019
+        validated = helpers.validate_year(year)
+        self.assertEqual(validated, 2019)
+
+        year = 1995
+        validated = helpers.validate_year(year)
+        self.assertEqual(validated, 1995)
 
     def test_validate_year_bad(self):
-        pass
+        """ Bad not passing validation tests for year function"""
+        bad_year = "hello"
+        with self.assertRaises(Exception) as context:
+            helpers.validate_year(bad_year)
+        exception = context.exception
+        self.assertEqual(exception.args[0]["status_code"], 400)
+        self.assertEqual(exception.args[0]["message"], "Invalid year")
 
     def test_validate_int_good(self):
-        pass
+        """ Good passing validation tests for int function"""
+        good_int = 1
+        validated = helpers.validate_int(good_int, 'good_int')
+        self.assertEqual(validated, 1)
+
+        good_int = 35
+        validated = helpers.validate_int(good_int, 'good_int')
+        self.assertEqual(validated, 35)
 
     def test_validate_int_bad(self):
-        pass
+        """ Bad not passing validation tests for int function"""
+        bad_int = "hello"
+        with self.assertRaises(Exception) as context:
+            helpers.validate_int(bad_int, 'int')
+        exception = context.exception
+        self.assertEqual(exception.args[0]["status_code"], 400)
+        self.assertEqual(exception.args[0]["message"], "Invalid int")
 
     def test_validate_string_good(self):
         pass
