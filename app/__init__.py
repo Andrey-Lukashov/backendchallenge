@@ -40,6 +40,10 @@ def create_app(config_name):
 
     @app.route('/car/get', methods=['GET'])
     def car_get():
+        """
+        Gets an object based on parameters supplied to the endpoint. Returns first suitable found object based on params
+        Endpoint URL: /car/get
+        """
         if request.method == "GET":
             if request.args is None:
                 return jsonify({"status_code": 400, "message": "Invalid request"})
@@ -149,6 +153,10 @@ def create_app(config_name):
 
     @app.route('/branch/get', methods=['GET'])
     def branch_get():
+        """
+        Gets an object based on parameters supplied to the endpoint. Returns first suitable found object based on params
+        Endpoint URL: /branch/get
+        """
         if request.method == "GET":
             if request.args is None:
                 return jsonify({"status_code": 400, "message": "Invalid request"})
@@ -247,6 +255,10 @@ def create_app(config_name):
 
     @app.route('/driver/get', methods=['GET'])
     def driver_get():
+        """
+        Gets an object based on parameters supplied to the endpoint. Returns first suitable found object based on params
+        Endpoint URL: /driver/get
+        """
         if request.method == "GET":
             if request.args is None:
                 return jsonify({"status_code": 400, "message": "Invalid request"})
