@@ -43,6 +43,7 @@ def create_app(config_name):
         """
         Gets an object based on parameters supplied to the endpoint. Returns first suitable found object based on params
         Endpoint URL: /car/get
+        :return: JSON of an object or exception status
         """
         if request.method == "GET":
             if request.args is None:
@@ -114,18 +115,29 @@ def create_app(config_name):
 
     @app.route('/car/delete', methods=['DELETE'])
     def car_delete():
+        """
+        Deletes an object based on the id
+        Endpoint URL: /car/delete
+        :return: JSON successful message or exception response
+        """
         if request.method == "DELETE":
             if request.args is None:
                 return jsonify({"status_code": 400, "message": "Invalid request"})
 
             try:
+                # Validate id parameter passed
                 id = helpers.check_missing('args', request, 'id')
                 id = helpers.validate_int(id, 'id')
+
+                # Find the object to delete
                 params = {"id": id}
                 car = Car.get(params)
+
+                # Return 404 if not found the object to delete
                 if not car:
                     return jsonify({"status_code": 404, "message": "Car not found"})
 
+                # Delete object and return successful message
                 car.delete()
                 return jsonify({"status_code": 200, "message": "Car deleted"})
             except Exception as e:
@@ -156,6 +168,7 @@ def create_app(config_name):
         """
         Gets an object based on parameters supplied to the endpoint. Returns first suitable found object based on params
         Endpoint URL: /branch/get
+        :return: JSON of an object or exception status
         """
         if request.method == "GET":
             if request.args is None:
@@ -213,18 +226,29 @@ def create_app(config_name):
 
     @app.route('/branch/delete', methods=['DELETE'])
     def branch_delete():
+        """
+        Deletes an object based on the id
+        Endpoint URL: /branch/delete
+        :return: JSON successful message or exception response
+        """
         if request.method == "DELETE":
             if request.args is None:
                 return jsonify({"status_code": 400, "message": "Invalid request"})
 
             try:
+                # Validate id parameter passed
                 id = helpers.check_missing('args', request, 'id')
                 id = helpers.validate_int(id, 'id')
+
+                # Find the object to delete
                 params = {"id": id}
                 branch = Branch.get(params)
+
+                # Return 404 if not found the object to delete
                 if not branch:
                     return jsonify({"status_code": 404, "message": "Branch not found"})
 
+                # Delete object and return successful message
                 branch.delete()
                 return jsonify({"status_code": 200, "message": "Branch deleted"})
             except Exception as e:
@@ -258,6 +282,7 @@ def create_app(config_name):
         """
         Gets an object based on parameters supplied to the endpoint. Returns first suitable found object based on params
         Endpoint URL: /driver/get
+        :return: JSON of an object or exception status
         """
         if request.method == "GET":
             if request.args is None:
@@ -319,17 +344,29 @@ def create_app(config_name):
 
     @app.route('/driver/delete', methods=['DELETE'])
     def driver_delete():
+        """
+        Deletes an object based on the id
+        Endpoint URL: /driver/delete
+        :return: JSON successful message or exception response
+        """
         if request.method == "DELETE":
             if request.args is None:
                 return jsonify({"status_code": 400, "message": "Invalid request"})
 
             try:
+                # Validate id parameter passed
                 id = helpers.check_missing('args', request, 'id')
                 id = helpers.validate_int(id, 'id')
+
+                # Find the object to delete
                 params = {"id": id}
                 driver = Driver.get(params)
+
+                # Return 404 if not found the object to delete
                 if not driver:
                     return jsonify({"status_code": 404, "message": "Driver not found"})
+
+                # Delete object and return successful message
                 driver.delete()
                 return jsonify({"status_code": 200, "message": "Driver deleted"})
             except Exception as e:
