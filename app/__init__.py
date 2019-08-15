@@ -45,7 +45,8 @@ def create_app(config_name):
                 return jsonify({"status_code": 400, "message": "Invalid request"})
 
             try:
-                params = {}
+                params = {}  # list of params that we will search by
+                # Check if any of the parameters are being passed and then validate them
                 if "id" in request.args.keys():
                     params['id'] = helpers.validate_int(request.args.get('id'), 'id')
                 if "make" in request.args.keys():
@@ -54,19 +55,16 @@ def create_app(config_name):
                     params['model'] = helpers.validate_string(request.args.get('model'), 'model')
                 if "year" in request.args.keys():
                     params['year'] = helpers.validate_year(request.args.get('year'))
-
-                if "assigned_type" in request.args.keys() and not "assigned_id" in request.args.keys():
-                    raise Exception({"status_code": 400, "message": "Missing assigned_id"})
-
-                elif "assigned_id" in request.args.keys() and not "assigned_type" in request.args.keys():
-                    raise Exception({"status_code": 400, "message": "Missing assigned_type"})
-
-                elif "assigned_type" in request.args.keys() and "assigned_id" in request.args.keys():
+                if "assigned_type" in request.args.keys():
                     params['assigned_type'] = helpers.validate_int(request.args.get('assigned_type'), 'assigned_type')
+                if "assigned_id" in request.args.keys():
                     params['assigned_id'] = helpers.validate_int(request.args.get('assigned_id'), 'assigned_id')
+
+                # If no allowed params were passed on - invalidate the request
                 if not params:
                     raise Exception({"status_code": 400, "message": "Invalid request"})
 
+                # Get the object based on the given parameters
                 car = Car.get(params)
                 if not car:
                     raise Exception({"status_code": 404, "message": "Car not found"})
@@ -156,7 +154,8 @@ def create_app(config_name):
                 return jsonify({"status_code": 400, "message": "Invalid request"})
 
             try:
-                params = {}
+                params = {}  # list of params that we will search by
+                # Check if any of the parameters are being passed and then validate them
                 if "id" in request.args.keys():
                     params['id'] = helpers.validate_int(request.args.get('id'), 'id')
                 if "city" in request.args.keys():
@@ -165,8 +164,12 @@ def create_app(config_name):
                     params['postcode'] = helpers.validate_postcode(request.args.get('postcode'))
                 if "capacity" in request.args.keys():
                     params['capacity'] = helpers.validate_int(request.args.get('capacity'), 'capacity')
+
+                # If no allowed params were passed on - invalidate the request
                 if not params:
                     return jsonify({"status_code": 400, "message": "Invalid request"})
+
+                # Get the object based on the given parameters
                 branch = Branch.get(params)
                 if not branch:
                     return jsonify({"status_code": 404, "message": "Branch not found"})
@@ -249,27 +252,29 @@ def create_app(config_name):
                 return jsonify({"status_code": 400, "message": "Invalid request"})
 
             try:
-                params = {}
+                params = {}  # list of params that we will search by
+                # Check if any of the parameters are being passed and then validate them
                 if "id" in request.args.keys():
                     params['id'] = helpers.validate_int(request.args.get('id'), 'id')
                 if "first_name" in request.args.keys():
                     params["first_name"] = helpers.validate_string(request.args.get('first_name'), 'first_name')
-
                 if "middle_name" in request.args.keys():
                     params["middle_name"] = helpers.validate_string(request.args.get('middle_name'), 'middle_name')
-
                 if "last_name" in request.args.keys():
                     params["last_name"] = helpers.validate_string(request.args.get('last_name'), 'last_name')
                 if "dob" in request.args.keys():
                     params["dob"] = helpers.validate_dob(request.args.get('dob'))
 
+                # If no allowed params were passed on - invalidate the request
                 if not params:
                     return jsonify({"status_code": 400, "message": "Invalid request"})
+
+                # Get the object based on the given parameters
                 driver = Driver.get(params)
                 if not driver:
                     return jsonify({"status_code": 404, "message": "Driver not found"})
                 return jsonify(driver.serialize())
-            except Exception as e:
+            except Exception as e:  # Return messages of any exceptions raised during validation
                 return jsonify({"status_code": e.args[0]['status_code'], "message": e.args[0]['message']})
 
     @app.route('/driver/update', methods=['PUT'])
