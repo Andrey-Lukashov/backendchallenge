@@ -1,7 +1,7 @@
 import unittest
 from app import create_app, db
 from flask import json
-
+import app.helpers as helpers
 
 def api_call(self, method, url, data, status_code, return_jason=False):
     """
@@ -841,6 +841,65 @@ class DriverTestCase(unittest.TestCase):
 
         res = self.client.get('/driver/delete')
         self.assertEqual(res.status_code, 405)
+
+    def tearDown(self):
+        with self.app.app_context():
+            # drop all tables
+            db.session.remove()
+            db.drop_all()
+
+
+class HelpersTestCase(unittest.TestCase):
+    def setUp(self):
+        # sets up clean app with testing config
+        self.app = create_app(config_name="testing")
+        self.client = self.app.test_client()
+
+        # set up test db
+        with self.app.app_context():
+            db.create_all()
+
+    def test_check_missing_good(self):
+        pass
+
+    def test_check_missing_bad(self):
+        pass
+
+    def test_validate_year_good(self):
+        pass
+
+    def test_validate_year_bad(self):
+        pass
+
+    def test_validate_int_good(self):
+        pass
+
+    def test_validate_int_bad(self):
+        pass
+
+    def test_validate_string_good(self):
+        pass
+
+    def test_validate_string_bad(self):
+        pass
+
+    def test_validate_postcode_good(self):
+        pass
+
+    def test_validate_postcode_bad(self):
+        pass
+
+    def test_validate_dob_good(self):
+        pass
+
+    def test_validate_dob_bad(self):
+        pass
+
+    def test_validate_assigning_good(self):
+        pass
+
+    def test_validate_assigning_bad(self):
+        pass
 
     def tearDown(self):
         with self.app.app_context():
