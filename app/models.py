@@ -1,5 +1,5 @@
 from app import db
-
+import datetime
 
 class Car(db.Model):
     __tablename__ = 'car'
@@ -142,5 +142,5 @@ class Driver(db.Model):
             "first_name": self.first_name,
             "middle_name": self.middle_name,
             "last_name": self.last_name,
-            "dob": self.dob.strftime('%d/%m/%Y')
+            "dob": self.dob.strftime("%d/%m/%Y")
         }
