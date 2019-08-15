@@ -978,10 +978,37 @@ class HelpersTestCase(unittest.TestCase):
         self.assertEqual(exception.args[0]["message"], "Invalid postcode")
 
     def test_validate_dob_good(self):
-        pass
+        """ Good passing validation tests for date of birth function"""
+        good_dob = "15/06/2000"
+        validated = helpers.validate_dob(good_dob)
+        self.assertEqual(validated, '06/15/2000')
+
+        good_dob = "08/02/1992"
+        validated = helpers.validate_dob(good_dob)
+        self.assertEqual(validated, '02/08/1992')
 
     def test_validate_dob_bad(self):
-        pass
+        """ Bad not passing validation tests for date of birth function"""
+        bad_dob="99/99/2005"
+        with self.assertRaises(Exception) as context:
+            helpers.validate_dob(bad_dob)
+        exception = context.exception
+        self.assertEqual(exception.args[0]["status_code"], 400)
+        self.assertEqual(exception.args[0]["message"], "Invalid dob")
+
+        bad_dob="Yesterday"
+        with self.assertRaises(Exception) as context:
+            helpers.validate_dob(bad_dob)
+        exception = context.exception
+        self.assertEqual(exception.args[0]["status_code"], 400)
+        self.assertEqual(exception.args[0]["message"], "Invalid dob")
+
+        bad_dob="15/06/2012"
+        with self.assertRaises(Exception) as context:
+            helpers.validate_dob(bad_dob)
+        exception = context.exception
+        self.assertEqual(exception.args[0]["status_code"], 400)
+        self.assertEqual(exception.args[0]["message"], "Invalid dob")
 
     def test_validate_assigning_good(self):
         pass
