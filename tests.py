@@ -1010,12 +1010,6 @@ class HelpersTestCase(unittest.TestCase):
         self.assertEqual(exception.args[0]["status_code"], 400)
         self.assertEqual(exception.args[0]["message"], "Invalid dob")
 
-    def test_validate_assigning_good(self):
-        pass
-
-    def test_validate_assigning_bad(self):
-        pass
-
     def tearDown(self):
         with self.app.app_context():
             # drop all tables
