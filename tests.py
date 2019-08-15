@@ -926,10 +926,23 @@ class HelpersTestCase(unittest.TestCase):
         self.assertEqual(exception.args[0]["message"], "Invalid int")
 
     def test_validate_string_good(self):
-        pass
+        """ Good passing validation tests for string function"""
+        good_string = "Shmlonathan"
+        validated = helpers.validate_string(good_string, 'name')
+        self.assertEqual(validated, "Shmlonathan")
+
+        good_string = "Shmlonika"
+        validated = helpers.validate_string(good_string, 'name')
+        self.assertEqual(validated, "Shmlonika")
 
     def test_validate_string_bad(self):
-        pass
+        """ Bad not passing validation tests for string function"""
+        bad_string = None
+        with self.assertRaises(Exception) as context:
+            helpers.validate_string(bad_string, 'string')
+        exception = context.exception
+        self.assertEqual(exception.args[0]["status_code"], 400)
+        self.assertEqual(exception.args[0]["message"], "Invalid string")
 
     def test_validate_postcode_good(self):
         pass
