@@ -41,7 +41,7 @@ def create_app(config_name):
     @app.route('/car/get', methods=['GET'])
     def car_get():
         """
-        Gets an object based on parameters supplied to the endpoint. Returns first suitable found object based on params
+        Gets a record based on parameters supplied to the endpoint. Returns first suitable found object based on params
         Endpoint URL: /car/get
         :return: JSON of an object or exception status
         """
@@ -79,25 +79,38 @@ def create_app(config_name):
 
     @app.route('/car/update', methods=['PUT'])
     def car_update():
+        """
+        Updates a record based on id supplied
+        Endpoint URL: /car/update
+        :return: JSON successful message or exception response
+        """
         if request.method == "PUT":
             if request.data is None:
                 return jsonify({"status_code": 400, "message": "Invalid request"})
             request_data = request.data
 
             try:
+                # Validate id parameter passed
                 id = helpers.check_missing('list', request_data, 'id')
                 id = helpers.validate_int(id, 'id')
+
+                # Find the object to update
                 params = {"id": id}
                 car = Car.get(params)
+
+                # Return 404 if not found the object to update
                 if not car:
                     raise Exception({"status_code": 404, "message": "Car not found"})
 
+                # Find and validate any allowed parameters
                 if "make" in request_data.keys():
                     car.make = helpers.validate_string(request_data['make'], 'make')
                 if "model" in request_data.keys():
                     car.model = helpers.validate_string(request_data['model'], 'model')
                 if "year" in request.data.keys():
                     car.year = helpers.validate_year(request_data['year'])
+
+                # Logic to enforce assigned type and id to be passed on and validated together
                 if "assigned_type" in request_data.keys() and not "assigned_id" in request_data.keys():
                     raise Exception({"status_code": 400, "message": "Missing assigned_id"})
                 elif "assigned_id" in request_data.keys() and not "assigned_type" in request_data.keys():
@@ -107,8 +120,9 @@ def create_app(config_name):
                                                                             request_data['assigned_id'])
                     car.assigned_type = assigned_type
                     car.assigned_id = assigned_id
-                car.save()
 
+                # Save an object and return successful message
+                car.save()
                 return jsonify({"status_code": 200, "message": "Car record was updated"})
             except Exception as e:
                 return jsonify({"status_code": e.args[0]['status_code'], "message": e.args[0]['message']})
@@ -116,7 +130,7 @@ def create_app(config_name):
     @app.route('/car/delete', methods=['DELETE'])
     def car_delete():
         """
-        Deletes an object based on the id
+        Deletes a record based on the id
         Endpoint URL: /car/delete
         :return: JSON successful message or exception response
         """
@@ -166,7 +180,7 @@ def create_app(config_name):
     @app.route('/branch/get', methods=['GET'])
     def branch_get():
         """
-        Gets an object based on parameters supplied to the endpoint. Returns first suitable found object based on params
+        Gets a record based on parameters supplied to the endpoint. Returns first suitable found object based on params
         Endpoint URL: /branch/get
         :return: JSON of an object or exception status
         """
@@ -201,24 +215,38 @@ def create_app(config_name):
 
     @app.route('/branch/update', methods=['PUT'])
     def branch_update():
+        """
+        Updates a record based on id supplied
+        Endpoint URL: /branch/update
+        :return: JSON successful message or exception response
+        """
         if request.method == "PUT":
             if request.data is None:
                 return jsonify({"status_code": 400, "message": "Invalid request"})
             request_data = request.data
 
             try:
+                # Validate id parameter passed
                 id = helpers.check_missing('list', request_data, 'id')
                 id = helpers.validate_int(id, 'id')
+
+                # Find the object to update
                 params = {"id": id}
                 branch = Branch.get(params)
+
+                # Return 404 if not found the object to update
                 if not branch:
                     return jsonify({"status_code": 404, "message": "Branch not found"})
+
+                # Find and validate any allowed parameters
                 if "city" in request_data.keys():
                     branch.city = helpers.validate_string(request_data['city'], 'city')
                 if "postcode" in request_data.keys():
                     branch.postcode = helpers.validate_postcode(request_data['postcode'])
                 if "capacity" in request_data.keys():
                     branch.capacity = helpers.validate_int(request_data['capacity'], 'capacity')
+
+                # Save an object and return successful message
                 branch.save()
                 return jsonify({"status_code": 200, "message": "Branch record was updated"})
             except Exception as e:
@@ -227,7 +255,7 @@ def create_app(config_name):
     @app.route('/branch/delete', methods=['DELETE'])
     def branch_delete():
         """
-        Deletes an object based on the id
+        Deletes a record based on the id
         Endpoint URL: /branch/delete
         :return: JSON successful message or exception response
         """
@@ -280,7 +308,7 @@ def create_app(config_name):
     @app.route('/driver/get', methods=['GET'])
     def driver_get():
         """
-        Gets an object based on parameters supplied to the endpoint. Returns first suitable found object based on params
+        Gets a record based on parameters supplied to the endpoint. Returns first suitable found object based on params
         Endpoint URL: /driver/get
         :return: JSON of an object or exception status
         """
@@ -316,19 +344,30 @@ def create_app(config_name):
 
     @app.route('/driver/update', methods=['PUT'])
     def driver_update():
+        """
+        Updates a record based on id supplied
+        Endpoint URL: /driver/update
+        :return: JSON successful message or exception response
+        """
         if request.method == "PUT":
             if request.data is None:
                 return jsonify({"status_code": 400, "message": "Invalid request"})
             request_data = request.data
 
             try:
+                # Validate id parameter passed
                 id = helpers.check_missing('list', request_data, 'id')
                 id = helpers.validate_int(id, 'id')
+
+                # Find the object to update
                 params = {"id": id}
                 driver = Driver.get(params)
+
+                # Return 404 if not found the object to update
                 if not driver:
                     return jsonify({"status_code": 404, "message": "Driver not found"})
 
+                # Find and validate any allowed parameters
                 if "first_name" in request_data.keys():
                     driver.first_name = helpers.validate_string(request_data['first_name'], 'first_name')
                 if "middle_name" in request_data.keys():
@@ -337,6 +376,8 @@ def create_app(config_name):
                     driver.last_name = helpers.validate_string(request_data['last_name'], 'last_name')
                 if "dob" in request_data.keys():
                     driver.dob = helpers.validate_dob(request_data["dob"])
+
+                # Save an object and return successful message
                 driver.save()
                 return jsonify({"status_code": 200, "message": "Driver record was updated"})
             except Exception as e:
@@ -345,7 +386,7 @@ def create_app(config_name):
     @app.route('/driver/delete', methods=['DELETE'])
     def driver_delete():
         """
-        Deletes an object based on the id
+        Deletes a record based on the id
         Endpoint URL: /driver/delete
         :return: JSON successful message or exception response
         """
