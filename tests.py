@@ -1,7 +1,7 @@
 import unittest
 from app import create_app, db
 from flask import json
-
+import app.helpers as helpers
 
 def api_call(self, method, url, data, status_code, return_jason=False):
     """
@@ -841,6 +841,174 @@ class DriverTestCase(unittest.TestCase):
 
         res = self.client.get('/driver/delete')
         self.assertEqual(res.status_code, 405)
+
+    def tearDown(self):
+        with self.app.app_context():
+            # drop all tables
+            db.session.remove()
+            db.drop_all()
+
+
+class HelpersTestCase(unittest.TestCase):
+    def setUp(self):
+        # sets up clean app with testing config
+        self.app = create_app(config_name="testing")
+        self.client = self.app.test_client()
+
+        # set up test db
+        with self.app.app_context():
+            db.create_all()
+
+    def test_check_missing_good(self):
+        """ Successful tests for missing fields check """
+        args = lambda: None
+        args.args = {"name": 'John'}
+        args_test = helpers.check_missing('args', args, 'name')
+        self.assertEqual(args_test, 'John')
+
+        lists = {"name": "Mary"}
+        args_test = helpers.check_missing('list', lists, 'name')
+        self.assertEqual(args_test, 'Mary')
+
+    def test_check_missing_bad(self):
+        """ Cases where missing fields check would raise exception and won't validate"""
+        args = lambda: None
+        args.args = {"city": 'London'}
+        with self.assertRaises(Exception) as context:
+            helpers.check_missing('args', args, 'name')
+        exception = context.exception
+        self.assertEqual(exception.args[0]["status_code"], 400)
+        self.assertEqual(exception.args[0]["message"], "Missing name")
+
+        lists = {"city": "Bristol"}
+        with self.assertRaises(Exception) as context:
+            helpers.check_missing('list', lists, 'name')
+        exception = context.exception
+        self.assertEqual(exception.args[0]["status_code"], 400)
+        self.assertEqual(exception.args[0]["message"], "Missing name")
+
+    def test_validate_year_good(self):
+        """ Good passing validation tests for year function"""
+        year = 2019
+        validated = helpers.validate_year(year)
+        self.assertEqual(validated, 2019)
+
+        year = 1995
+        validated = helpers.validate_year(year)
+        self.assertEqual(validated, 1995)
+
+    def test_validate_year_bad(self):
+        """ Bad not passing validation tests for year function"""
+        bad_year = "hello"
+        with self.assertRaises(Exception) as context:
+            helpers.validate_year(bad_year)
+        exception = context.exception
+        self.assertEqual(exception.args[0]["status_code"], 400)
+        self.assertEqual(exception.args[0]["message"], "Invalid year")
+
+    def test_validate_int_good(self):
+        """ Good passing validation tests for int function"""
+        good_int = 1
+        validated = helpers.validate_int(good_int, 'good_int')
+        self.assertEqual(validated, 1)
+
+        good_int = 35
+        validated = helpers.validate_int(good_int, 'good_int')
+        self.assertEqual(validated, 35)
+
+    def test_validate_int_bad(self):
+        """ Bad not passing validation tests for int function"""
+        bad_int = "hello"
+        with self.assertRaises(Exception) as context:
+            helpers.validate_int(bad_int, 'int')
+        exception = context.exception
+        self.assertEqual(exception.args[0]["status_code"], 400)
+        self.assertEqual(exception.args[0]["message"], "Invalid int")
+
+    def test_validate_string_good(self):
+        """ Good passing validation tests for string function"""
+        good_string = "Shmlonathan"
+        validated = helpers.validate_string(good_string, 'name')
+        self.assertEqual(validated, "Shmlonathan")
+
+        good_string = "Shmlonika"
+        validated = helpers.validate_string(good_string, 'name')
+        self.assertEqual(validated, "Shmlonika")
+
+    def test_validate_string_bad(self):
+        """ Bad not passing validation tests for string function"""
+        bad_string = None
+        with self.assertRaises(Exception) as context:
+            helpers.validate_string(bad_string, 'string')
+        exception = context.exception
+        self.assertEqual(exception.args[0]["status_code"], 400)
+        self.assertEqual(exception.args[0]["message"], "Invalid string")
+
+    def test_validate_postcode_good(self):
+        """ Good passing validation tests for postcode function"""
+        good_postcode = "GU13GX"
+        validated = helpers.validate_postcode(good_postcode)
+        self.assertEqual(validated, "GU13GX")
+
+        good_postcode = "E1W 3SS"
+        validated = helpers.validate_postcode(good_postcode)
+        self.assertEqual(validated, "E1W 3SS")
+
+    def test_validate_postcode_bad(self):
+        """ Bad not passing validation tests for string function"""
+        bad_postcode = "GU24"
+        with self.assertRaises(Exception) as context:
+            helpers.validate_postcode(bad_postcode)
+        exception = context.exception
+        self.assertEqual(exception.args[0]["status_code"], 400)
+        self.assertEqual(exception.args[0]["message"], "Invalid postcode")
+
+        bad_postcode = "SE1715DGX"
+        with self.assertRaises(Exception) as context:
+            helpers.validate_postcode(bad_postcode)
+        exception = context.exception
+        self.assertEqual(exception.args[0]["status_code"], 400)
+        self.assertEqual(exception.args[0]["message"], "Invalid postcode")
+
+        bad_postcode = "SE171 5DG"
+        with self.assertRaises(Exception) as context:
+            helpers.validate_postcode(bad_postcode)
+        exception = context.exception
+        self.assertEqual(exception.args[0]["status_code"], 400)
+        self.assertEqual(exception.args[0]["message"], "Invalid postcode")
+
+    def test_validate_dob_good(self):
+        """ Good passing validation tests for date of birth function"""
+        good_dob = "15/06/2000"
+        validated = helpers.validate_dob(good_dob)
+        self.assertEqual(validated, '06/15/2000')
+
+        good_dob = "08/02/1992"
+        validated = helpers.validate_dob(good_dob)
+        self.assertEqual(validated, '02/08/1992')
+
+    def test_validate_dob_bad(self):
+        """ Bad not passing validation tests for date of birth function"""
+        bad_dob="99/99/2005"
+        with self.assertRaises(Exception) as context:
+            helpers.validate_dob(bad_dob)
+        exception = context.exception
+        self.assertEqual(exception.args[0]["status_code"], 400)
+        self.assertEqual(exception.args[0]["message"], "Invalid dob")
+
+        bad_dob="Yesterday"
+        with self.assertRaises(Exception) as context:
+            helpers.validate_dob(bad_dob)
+        exception = context.exception
+        self.assertEqual(exception.args[0]["status_code"], 400)
+        self.assertEqual(exception.args[0]["message"], "Invalid dob")
+
+        bad_dob="15/06/2012"
+        with self.assertRaises(Exception) as context:
+            helpers.validate_dob(bad_dob)
+        exception = context.exception
+        self.assertEqual(exception.args[0]["status_code"], 400)
+        self.assertEqual(exception.args[0]["message"], "Invalid dob")
 
     def tearDown(self):
         with self.app.app_context():

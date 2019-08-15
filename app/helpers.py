@@ -103,7 +103,7 @@ def validate_dob(dob):
         min_age = datetime.timedelta(weeks=52 * 18)
         if datetime.datetime.now() - dob < min_age:  # must be 18 or over
             raise Exception({"status_code": 400, "message": "Invalid dob"})
-        return dob.strftime("%m/%d/%Y")
+        return dob.strftime('%m/%d/%Y')
     except Exception:
         raise Exception({"status_code": 400, "message": "Invalid dob"})
 
