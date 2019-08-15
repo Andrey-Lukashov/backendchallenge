@@ -945,10 +945,37 @@ class HelpersTestCase(unittest.TestCase):
         self.assertEqual(exception.args[0]["message"], "Invalid string")
 
     def test_validate_postcode_good(self):
-        pass
+        """ Good passing validation tests for postcode function"""
+        good_postcode = "GU13GX"
+        validated = helpers.validate_postcode(good_postcode)
+        self.assertEqual(validated, "GU13GX")
+
+        good_postcode = "E1W 3SS"
+        validated = helpers.validate_postcode(good_postcode)
+        self.assertEqual(validated, "E1W 3SS")
 
     def test_validate_postcode_bad(self):
-        pass
+        """ Bad not passing validation tests for string function"""
+        bad_postcode = "GU24"
+        with self.assertRaises(Exception) as context:
+            helpers.validate_postcode(bad_postcode)
+        exception = context.exception
+        self.assertEqual(exception.args[0]["status_code"], 400)
+        self.assertEqual(exception.args[0]["message"], "Invalid postcode")
+
+        bad_postcode = "SE1715DGX"
+        with self.assertRaises(Exception) as context:
+            helpers.validate_postcode(bad_postcode)
+        exception = context.exception
+        self.assertEqual(exception.args[0]["status_code"], 400)
+        self.assertEqual(exception.args[0]["message"], "Invalid postcode")
+
+        bad_postcode = "SE171 5DG"
+        with self.assertRaises(Exception) as context:
+            helpers.validate_postcode(bad_postcode)
+        exception = context.exception
+        self.assertEqual(exception.args[0]["status_code"], 400)
+        self.assertEqual(exception.args[0]["message"], "Invalid postcode")
 
     def test_validate_dob_good(self):
         pass
