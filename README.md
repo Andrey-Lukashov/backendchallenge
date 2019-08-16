@@ -1,7 +1,13 @@
 # Python Backend Challenge
-This app was built as a part of Python backend challenge using Flask and postgresql. It is a service that lets you create drivers, cars and branches. Car can be assigned to a car or a branch.
+This app was built as a part of Python backend challenge using Flask and postgresql. It is a service that lets you perform CRUD operations on Car, Drivers and Branch records. 
+## Task
+Please see README_old.md
+## Attempted levels
+- Novice
+- Expert
 # API Documentation
 ## Car
+Represents possible operations (CRUD at the moment) to the Car records in the database. Can be assigned a Branch or Driver record during /car/create or via /car/update. Can assign Car to Driver or Branch. Branch record must exist and Branch must not exceed its capacity.
 ### Methods
 #### POST /car/create
 Creates a car object and saves it to database.
