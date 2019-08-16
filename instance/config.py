@@ -25,5 +25,5 @@ class ProductionConfig(Config):
 app_config = {
     'development': DevelopmentConfig,
     'testing': TestingConfig,
-    'podtoin': ProductionConfig
+    'production': ProductionConfig
 }
