@@ -86,25 +86,12 @@ Creates a branch object and saves it to database.
 - Method: POST
 - Content-type: application/json
 ##### Parameters
-###### city
-- required
-- string
-- length 60
-- Represents city in which Branch is based
-- Example: London, Glasgow, Cardiff
-###### postcode
-- required
-- string
-- length 8
-- Represents UK-style postcode of a branch
-- Example: E1W 3SS, GU27NQ, W6 8AB
-###### capacity
-- required
-- int
-- length 2147483647
-- Represents capacity of a branch
-- Example: 10, 25, 100
-#### Response codes
+| Param Name        | Required           | Type | Length | Example | 
+| ------------- |:-------------:|:-------------:|:-------------:|:-------------:|
+| city | Yes | String | 60 | London |
+| postcode | Yes | String | 6 | SW15 1RB | 
+| capacity | Yes | Int | Int Max Size | 125
+##### Response codes
 - 400 : Invalid Request, Missing Parameters
 - 201 : Branch created
 
@@ -115,27 +102,13 @@ Gets a branch record based on supplied parameters. Returns first branch that mat
 - Content-type: application/json
 - Returns JSON
 ##### Parameters
-###### id
-- optional
-- int
-- Represents id of a branch record
-- Example: 5, 17, 248
-###### city
-- optional
-- string 
-- Represents name of a ciy where branch is located
-- Example: Southend-on-Sea, Sheffield, Norwich
-###### postcode
-- optional
-- string
-- Represents UK style postcode of a branch
-- Example: E1W 2BX, WC2H7LU, SW15 1RB
-##### capacity
-- optional
-- int
-- Represents capacity of a branch
-- Example: 15, 21, 42
-#### Response codes
+| Param Name        | Required           | Type | Length | Example | 
+| ------------- |:-------------:|:-------------:|:-------------:|:-------------:|
+| id | No | Int | Int Max Size | 42 | 
+| city | No | String | 60 | London |
+| postcode | No | String | 6 | SW15 1RB | 
+| capacity | No | Int | Int Max Size | 125
+##### Response codes
 - 400 : Invalid request, Invalid parameters
 - 404 : Branch not found
 - 200 : OK
@@ -146,27 +119,13 @@ Updates existing branch record. Finds the record to update based on id
 - Method: PUT
 - Content-type: application/json
 ##### Parameters
-###### id
-- required
-- int
-- Represents id of a branch record
-- Example: 5, 17, 248
-###### city
-- optional
-- string 
-- Represents name of a ciy where branch is located
-- Example: Southend-on-Sea, Sheffield, Norwich
-###### postcode
-- optional
-- string
-- Represents UK style postcode of a branch
-- Example: E1W 2BX, WC2H7LU, SW15 1RB
-##### capacity
-- optional
-- int
-- Represents capacity of a branch
-- Example: 15, 21, 42
-#### Response codes
+| Param Name        | Required           | Type | Length | Example | 
+| ------------- |:-------------:|:-------------:|:-------------:|:-------------:|
+| id | Yes | Int | Int Max Size | 42 | 
+| city | No | String | 60 | London |
+| postcode | No | String | 6 | SW15 1RB | 
+| capacity | No | Int | Int Max Size | 125
+##### Response codes
 - 400 : Invalid Request, Missing Parameters
 - 404 : Branch not found
 - 200 : Branch record was updated
@@ -177,11 +136,10 @@ Deletes existing branch record. Finds the record to update based on id
 - Method: PUT
 - Content-type: application/json
 ##### Parameters
-###### id
-- required
-- int
-- Represents id of a record in a table you wish to update
-#### Response codes
+| Param Name        | Required           | Type | Length | Example | 
+| ------------- |:-------------:|:-------------:|:-------------:|:-------------:|
+| id | Yes | Int | Int Max Size | 42 | 
+##### Response codes
 - 400 : Invalid Request, Missing Parameters
 - 404 : Branch not found
 - 200 : Branch deleted
