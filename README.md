@@ -147,9 +147,71 @@ Deletes existing branch record. Finds the record to update based on id
 ## Driver
 ### Methods
 #### POST /driver/create
+Creates a driver object and saves it to database.
+##### Request Type
+- Method: POST
+- Content-type: application/json
+##### Parameters
+| Param Name        | Required           | Type | Length | Example | 
+| ------------- |:-------------:|:-------------:|:-------------:|:-------------:|
+| first_name | Yes | String | 100 | John |
+| middle_name | No | String | 100 | Gavin |
+| last_name | Yes | String | 100 | Malkovich |
+| dob | Yes | String | 6 | 09/12/1953 | 
+##### Response codes
+- 400 : Invalid Request, Missing Parameters
+- 201 : Driver created
+
 #### GET /driver/get
+Gets a driver record based on supplied parameters. Returns first driver that matches parameters. Returns driver not found message with status 404 in case no drivers were found.
+##### Request Type
+- Method: GET
+- Content-type: application/json
+- Returns JSON
+##### Parameters
+| Param Name        | Required           | Type | Length | Example | 
+| ------------- |:-------------:|:-------------:|:-------------:|:-------------:|
+| id | No | Int | Int Max Size | 42 | 
+| first_name | No | String | 100 | John |
+| middle_name | No | String | 100 | Gavin |
+| last_name | No | String | 100 | Malkovich |
+| dob | No | String | 6 | 09/12/1953 | 
+##### Response codes
+- 400 : Invalid request, Invalid parameters
+- 404 : Driver not found
+- 200 : OK
+
 #### PUT /driver/update
+Updates existing driver record. Finds the record to update based on id
+##### Request Type
+- Method: PUT
+- Content-type: application/json
+##### Parameters
+| Param Name        | Required           | Type | Length | Example | 
+| ------------- |:-------------:|:-------------:|:-------------:|:-------------:|
+| id | Yes | Int | Int Max Size | 42 | 
+| first_name | No | String | 100 | John |
+| middle_name | No | String | 100 | Gavin |
+| last_name | No | String | 100 | Malkovich |
+| dob | No | String | 6 | 09/12/1953 | 
+##### Response codes
+- 400 : Invalid Request, Missing Parameters
+- 404 : Driver not found
+- 200 : Driver record was updated
+
 #### DELETE /driver/delete
+Deletes existing driver record. Finds the record to update based on id
+##### Request Type
+- Method: PUT
+- Content-type: application/json
+##### Parameters
+| Param Name        | Required           | Type | Length | Example | 
+| ------------- |:-------------:|:-------------:|:-------------:|:-------------:|
+| id | Yes | Int | Int Max Size | 42 | 
+##### Response codes
+- 400 : Invalid Request, Missing Parameters
+- 404 : Driver not found
+- 200 : Driver deleted
 
 # Installation
 ## Update repo's
