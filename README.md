@@ -10,7 +10,7 @@ Please see README_old.md
 Represents possible operations (CRUD at the moment) to the Car records in the database. Can be assigned a Branch or Driver record during /car/create or via /car/update. Can assign Car to Driver or Branch. Branch record must exist and Branch must not exceed its capacity.
 ### Methods
 #### POST /car/create
-Creates a car object and saves it to database.
+Creates a car object record and saves it to database.
 ##### Request Type
 - Method: POST
 - Content-type: application/json
@@ -48,7 +48,7 @@ Creates a car object and saves it to database.
 - 400 : Invalid Request, Missing Parameters
 - 201 : Car created
 #### GET /car/get
-Gets a car object based on supplied parameters. Returns first car that matches parameters. Returns car not found in case no cars were found.
+Gets a car record based on supplied parameters. Returns first car that matches parameters. Returns car not found in case no cars were found.
 ##### Request Type
 - Method: GET
 - Content-type: application/json
@@ -155,6 +155,29 @@ Deletes existing car record. Finds the record to update based on id
 ## Branch
 ### Methods
 #### POST /branch/create
+Creates a branch object and saves it to database.
+##### Request Type
+- Method: POST
+- Content-type: application/json
+##### Parameters
+###### city
+- required
+- string
+- length 60
+- Represents city in which Branch is based
+- Example: London, Glasgow, Cardiff
+###### postcode
+- required
+- string
+- length 8
+- Represents UK-style postcode of a branch
+- Example: E1W 3SS, GU27NQ, W6 8AB
+###### capacity
+- required
+- int
+- length 2147483647
+- Represents capacity of a branch
+- Example: 10, 25, 100
 #### GET /branch/get
 #### PUT /branch/update
 #### DELETE /branch/delete
