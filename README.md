@@ -48,7 +48,7 @@ Creates a car object record and saves it to database.
 - 400 : Invalid Request, Missing Parameters
 - 201 : Car created
 #### GET /car/get
-Gets a car record based on supplied parameters. Returns first car that matches parameters. Returns car not found in case no cars were found.
+Gets a car record based on supplied parameters. Returns first car that matches parameters. Returns car not found message with status 404 in case no cars were found.
 ##### Request Type
 - Method: GET
 - Content-type: application/json
@@ -179,6 +179,32 @@ Creates a branch object and saves it to database.
 - Represents capacity of a branch
 - Example: 10, 25, 100
 #### GET /branch/get
+Gets a branch record based on supplied parameters. Returns first branch that matches parameters. Returns branch not found message with status 404 in case no branches were found.
+##### Request Type
+- Method: GET
+- Content-type: application/json
+- Returns JSON
+##### Parameters
+###### id
+- optional
+- int
+- Represents id of a branch in a database table
+- Example: 1, 25, 1234
+###### city
+- optional
+- string 
+- Represents name of a ciy where branch is located
+- Example: Southend-on-Sea, Sheffield, Norwich
+###### postcode
+- optional
+- string
+- Represents UK style postcode of a branch
+- Example: E1W 2BX, WC2H7LU, SW15 1RB
+##### capacity
+- optional
+- int
+- Represents capacity of a branch
+- Example: 15, 21, 42
 #### PUT /branch/update
 #### DELETE /branch/delete
 
