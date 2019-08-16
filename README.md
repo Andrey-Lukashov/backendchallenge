@@ -251,9 +251,9 @@ Create a sites directory and clone backendchallenge into it.
 **Install PostgreSQL and Python modules for it**
 - sudo apt-get install postgresql 
 - sudo apt-get install python-psycopg2
+- sudo apt-get install libpq-dev
 
 **Install Flask and necessary dependencies**
-- sudo apt-get install libpq-dev
 - pip3 install psycopg2 
 - pip3 install flask flask-sqlalchemy flask_migrate flask_script flask_api
 
@@ -277,7 +277,54 @@ Create a sites directory and clone backendchallenge into it.
 - python manage.py db upgrade 
 
 # Running the app
-- flask run
+- flask run  
+
+You should be able to see following if everything was installed successfully:
+ * Serving Flask app "run.py"
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
 
 # Import Test Data
+## Install curl
+- sudo apt install curl
+## Populate Tables 
+### Driver 
+- curl -d '{"first_name":"John", "middle_name":"Gavin", "last_name":"Malkovich", "dob":"09/12/1953"}' -H "Content-Type: application/json" -X POST http://localhost:5000/driver/create
+- curl -d '{"first_name":"James", "middle_name":"Eugene", "last_name":"Carrey", "dob":"09/12/1953"}' -H "Content-Type: application/json" -X POST http://localhost:5000/driver/create
 
+For both requests you should get this response: {"message":"Driver created","status_code":201}
+### Branch 
+- curl -d '{"city":"Wokingham", "postcode":"RG40 2AP", "capacity":2}' -H "Content-Type: application/json" -X POST http://localhost:5000/branch/create
+
+Response should be: {"message":"Branch created","status_code":201}
+
+### Car
+Assigned to drivers:
+- curl -d '{"make":"BMW", "model":"530d", "year":"2014", "assigned_type":1, "assigned_id":1}' -H "Content-Type: application/json" -X POST http://localhost:5000/car/create
+- curl -d '{"make":"Toyota", "model":"Prius", "year":2015, "assigned_type":1, "assigned_id":2}' -H "Content-Type: application/json" -X POST http://localhost:5000/car/create
+
+Assigned to branch:
+- curl -d '{"make":"Tesla", "model":"Model S", "year":2019, "assigned_type":2, "assigned_id":1}' -H "Content-Type: application/json" -X POST http://localhost:5000/car/create
+- curl -d '{"make":"Tesla", "model":"Model X", "year":2018, "assigned_type":2, "assigned_id":1}' -H "Content-Type: application/json" -X POST http://localhost:5000/car/create
+
+## Bonus: check db for population
+- psql 
+- \c flask_api
+- \d 
+-  SELECT * FROM branch;
+-  SELECT * FROM driver;
+-  SELECT * FROM car;
+- \q
+
+## Flask Logs
+Your flask logs should look like that if successfully used curl to populate data:
+- 127.0.0.1 - - [16/Aug/2019 02:40:49] "POST /driver/create HTTP/1.1" 200 -
+- 127.0.0.1 - - [16/Aug/2019 02:41:25] "POST /driver/create HTTP/1.1" 200 -
+- 127.0.0.1 - - [16/Aug/2019 02:45:40] "POST /branch/create HTTP/1.1" 200 -
+- 127.0.0.1 - - [16/Aug/2019 02:49:18] "POST /car/create HTTP/1.1" 200 -
+- 127.0.0.1 - - [16/Aug/2019 02:49:44] "POST /car/create HTTP/1.1" 200 -
+- 127.0.0.1 - - [16/Aug/2019 02:50:04] "POST /car/create HTTP/1.1" 200 -
+- 127.0.0.1 - - [16/Aug/2019 02:50:20] "POST /car/create HTTP/1.1" 200 -
