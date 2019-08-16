@@ -4,8 +4,9 @@ This document contains API documentation and Local Installation Instructions at 
 ## Task
 Please see README_old.md
 ## Attempted levels
-- Novice
-- Expert
+- Novice: all criteria
+- Intermediate: without async. URL to app will be sent in an email
+- Expert: all criteria
 # API Documentation
 ## Car
 Represents possible operations (CRUD at the moment) to the Car records in the database. Can be assigned a Branch or Driver record during /car/create or via /car/update. Can assign Car to Driver or Branch. Branch record must exist and Branch must not exceed its capacity.
@@ -332,3 +333,11 @@ Your flask logs should look like that if successfully used curl to populate data
 # Testing
 Simply run this command:
 - python tests.py
+
+# Notes
+- Refactor of tests: splitting them into separate tests files for each test case. Ideally something like CarTests.py, BranchTests.py, DriverTests.py, HelpersTests.py and maybe a general one for future. Move them to /tests/ folder
+- Refactor of endpoints and helpers functions. There are couple of places where logic could be more smart and less hackathon'y
+- Splitting endpoints into separate files and moving them into /controllers/ folder
+- Fix models: some of the functions there are just horrible and shameful to watch. Like get() function or serialize()
+- Better security for local server. In no universe a password 123456 is a great idea
+- Making a file to run commands after release for Heroku, at the moment it's missing automatic database reset and importing test data
