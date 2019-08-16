@@ -1,5 +1,6 @@
 # Python Backend Challenge
-This app was built as a part of Python backend challenge using Flask and postgresql. It is a service that lets you perform CRUD operations on Car, Drivers and Branch records. 
+This app was built as a part of Python backend challenge using Flask and postgresql. It is a service that lets you perform CRUD operations on Car, Drivers and Branch records.  
+This document contains API documentation and Local Installation Instructions at the bottom. 
 ## Task
 Please see README_old.md
 ## Attempted levels
@@ -213,21 +214,46 @@ Deletes existing driver record. Finds the record to update based on id
 - 404 : Driver not found
 - 200 : Driver deleted
 
-# Installation
-## Update repo's
+# Local Installation Instructions
+To install and run this REST service locally you will need to install Ubuntu 18.04 OS, set up python and dependencies as well as set up postgresql and user for it. The plan is to get the code from this repo, create virtual environment with Python3 and then run the necesssary services in order to get REST service up locally.
+
+**PLEASE NOTE**: This instruction is an example of a setup. It is NOT RECOMMENDED to use this in production as I have not added instructions for how to safeguard the server. This is NOT the best practice. 
+## Clean Machine
+### Install Ubuntu 18.04
+Download and install a clean Ubuntu 18.04 (latest stable version):  
+During the installation:
+- Set up username: flaskapi
+- Set up password: 123456789
+
+Once you login to your new Ubuntu - run software updater and update to the latest version. 
+
+### Setup Git
+GitHub has provided us with a great instructions here: [Set up Git | GitHub Help](https://help.github.com/en/articles/set-up-git)
+### Get Source Code
+Create a sites directory and clone backendchallenge into it.  
+- Open terminal and run following commands
+- mkdir sites
+- cd sites
+- git clone git@github.com:Andrey-Lukashov/backendchallenge.git
+- cd  backendchallenge 
+
+## Install Necessary Modules and Dependencies
+**Install Python Dependencies** 
 - sudo apt-get update
-## Install Python
-- sudo apt-get install python3
-- sudo apt-get install python3-pip
-- sudo pip install virtualenv
-## PostgreSQL
-- sudo apt-get install postgresql
-## psycopg2 - PostgreSQL wrapper for Flask
-- sudo apt-get install python-psycopg2
-## libpq - postgresql interface
-- sudo apt-get install libp
-## Python3 dependencies
-- sudo python3 install flask flask-sqlalchemy psycopg2 flask-migrate flask-script
+- sudo apt-get install python3 python3-pip virtualenv
+
+**Create Virtual Environment**
+-  virtualenv --python=python3 venv
+
+**Activate Virtual Environment**
+- source environment.env 
+
+**Install PostgreSQL and Python modules for it**
+- sudo apt-get install postgresql python-psycopg2 libpq
+
+**Install Flask and necessary dependencies**
+- sudo apt-get install libpq-dev
+- sudo pip3 install psycopg2 flask flask-sqlalchemy flask-migrate flask-script
 
 # PostgreSQL Setup
 ## Set Up User
