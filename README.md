@@ -15,42 +15,14 @@ Creates a car object record and saves it to database.
 - Method: POST
 - Content-type: application/json
 ##### Parameters
-###### make
-- required
-- string
-- length 100
-- Represents car make
-- Example: BMW, Mercedes, Lotus
-###### model
-- required
-- string
-- length 100
-- Represents car make
-- Example: Model 3, 525d, C65AMG
-###### year
-- required
-- int
-- length 100
-- Represents car year
-- Example: 1999, 2015, 2019
-###### assigned_type
-- required
-- int
-- Driver: 1, Branch: 2
-- Represents type of assigned entity
-- Example: 1, 2
-###### assigned_id
-- required
-- int
-- Represents id of assigned entity
-- Example: 7, 123, 15
-#### Assigned Types
-| Assigned Type        | Object           | 
-| ------------- |:-------------:|
-| 1     | Driver |
-| 2      | Branch      |
-
-#### Response codes
+| Param Name        | Required           | Type | Length | Example | 
+| ------------- |:-------------:|:-------------:|:-------------:|:-------------:|
+| make | Yes | String | 100  | BMW
+| model | Yes | String | 100 | 525d 
+| year | Yes | Int | Int Max Size | 2019  
+| assigned_type | Yes | Int | Int Max Size | 1
+| assigned_id | Yes | Int | Int Max Size | 2 
+##### Response codes
 - 400 : Invalid Request, Missing Parameters
 - 201 : Car created
 #### GET /car/get
@@ -60,41 +32,15 @@ Gets a car record based on supplied parameters. Returns first car that matches p
 - Content-type: application/json
 - Returns JSON
 ##### Parameters
-###### id
-- optional
-- int
-- Represents id of a car in a database table
-- Example: 1, 25, 1234
-###### make
-- optional
-- string
-- length 100
-- Represents car make
-- Example: BMW, Mercedes, Lotus
-###### model
-- optional
-- string
-- length 100
-- Represents car make
-- Example: Model 3, 525d, C65AMG
-###### year
-- optional
-- int
-- length 100
-- Represents car year
-- Example: 1999, 2015, 2019
-###### assigned_type
-- optional
-- int
-- Driver: 1, Branch: 2
-- Represents type of assigned entity
-- Example: 1, 2
-###### assigned_id
-- optional
-- int
-- Represents id of assigned entity
-- Example: 7, 123, 15
-#### Response codes
+| Param Name        | Required           | Type | Length | Example | 
+| ------------- |:-------------:|:-------------:|:-------------:|:-------------:|
+| id | No | Int | Int Max Size | 1
+| make | No | String | 100  | BMW
+| model | No | String | 100 | 525d 
+| year | No | Int | Int Max Size | 2019  
+| assigned_type | No | Int | Int Max Size | 1
+| assigned_id | No | Int | Int Max Size | 2 
+##### Response codes
 - 400 : Invalid request, Invalid parameters
 - 404 : Car Not Found
 - 200 : OK
@@ -105,40 +51,15 @@ Updates existing car record. Finds the record to update based on id
 - Method: PUT
 - Content-type: application/json
 ##### Parameters
-###### id
-- required
-- int
-- Represents id of a car record in a table
-###### make
-- optional
-- string
-- length 100
-- Represents car make
-- Example: BMW, Mercedes, Lotus
-###### model
-- optional
-- string
-- length 100
-- Represents car make
-- Example: Model 3, 525d, C65AMG
-###### year
-- optional
-- int
-- length 100
-- Represents car year
-- Example: 1999, 2015, 2019
-###### assigned_type
-- optional
-- int
-- Driver: 1, Branch: 2
-- Represents type of assigned entity
-- Example: 1, 2
-###### assigned_id
-- optional
-- int
-- Represents id of assigned entity
-- Example: 7, 123, 15
-#### Response codes
+| Param Name        | Required           | Type | Length | Example | 
+| ------------- |:-------------:|:-------------:|:-------------:|:-------------:|
+| id | Yes | Int | Int Max Size | 1
+| make | No | String | 100  | BMW
+| model | No | String | 100 | 525d 
+| year | No | Int | Int Max Size | 2019  
+| assigned_type | No | Int | Int Max Size | 1
+| assigned_id | No | Int | Int Max Size | 2 
+##### Response codes
 - 400 : Invalid Request, Missing Parameters
 - 404 : Car not found
 - 200 : Car record was updated
@@ -149,11 +70,10 @@ Deletes existing car record. Finds the record to update based on id
 - Method: PUT
 - Content-type: application/json
 ##### Parameters
-###### id
-- required
-- int
-- Represents id of a record in a table you wish to update
-#### Response codes
+| Param Name        | Required           | Type | Length | Example | 
+| ------------- |:-------------:|:-------------:|:-------------:|:-------------:|
+| id | Yes | Int | Int Max Size | 1
+##### Response codes
 - 400 : Invalid Request, Missing Parameters
 - 404 : Car not found
 - 200 : Car deleted
