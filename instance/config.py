@@ -15,7 +15,7 @@ class DevelopmentConfig(Config):
 class TestingConfig(Config):
     DEBUG = True
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = 'postgresql://flaskapi:123456@localhost/test_db'
+    SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:123456@localhost/test_db'
 
 
 class ProductionConfig(Config):
