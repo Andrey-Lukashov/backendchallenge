@@ -102,7 +102,7 @@ Updates existing car record. Finds the record to update based on id
 ###### id
 - required
 - int
-- Represents id of a record in a table you wish to update
+- Represents id of a car record in a table
 ###### make
 - optional
 - string
@@ -188,8 +188,8 @@ Gets a branch record based on supplied parameters. Returns first branch that mat
 ###### id
 - optional
 - int
-- Represents id of a branch in a database table
-- Example: 1, 25, 1234
+- Represents id of a branch record
+- Example: 5, 17, 248
 ###### city
 - optional
 - string 
@@ -206,6 +206,31 @@ Gets a branch record based on supplied parameters. Returns first branch that mat
 - Represents capacity of a branch
 - Example: 15, 21, 42
 #### PUT /branch/update
+Updates existing branch record. Finds the record to update based on id
+##### Request Type
+- Method: PUT
+- Content-type: application/json
+##### Parameters
+###### id
+- required
+- int
+- Represents id of a branch record
+- Example: 5, 17, 248
+###### city
+- optional
+- string 
+- Represents name of a ciy where branch is located
+- Example: Southend-on-Sea, Sheffield, Norwich
+###### postcode
+- optional
+- string
+- Represents UK style postcode of a branch
+- Example: E1W 2BX, WC2H7LU, SW15 1RB
+##### capacity
+- optional
+- int
+- Represents capacity of a branch
+- Example: 15, 21, 42
 #### DELETE /branch/delete
 
 ## Driver
