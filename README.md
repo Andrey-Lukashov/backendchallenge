@@ -249,20 +249,35 @@ Create a sites directory and clone backendchallenge into it.
 - source environment.env 
 
 **Install PostgreSQL and Python modules for it**
-- sudo apt-get install postgresql python-psycopg2 libpq
+- sudo apt-get install postgresql 
+- sudo apt-get install python-psycopg2
 
 **Install Flask and necessary dependencies**
 - sudo apt-get install libpq-dev
-- sudo pip3 install psycopg2 flask flask-sqlalchemy flask-migrate flask-script
+- pip3 install psycopg2 
+- pip3 install flask flask-sqlalchemy flask_migrate flask_script flask_api
 
 # PostgreSQL Setup
 ## Set Up User
+- sudo -u postgres createuser flaskapi
+
 ## Create Database
+- sudo -u postgres createdb flask_api
+
+## Change User Password
+- psql
+- \password  
+- 123456
+- 123456
+- \q
+
 ## Migrate Database
-python manage.py db init
-python manage.py db migrate
-python manage.py db upgrade 
+- python manage.py db init
+- python manage.py db migrate
+- python manage.py db upgrade 
 
 # Running the app
-source environment.env + flask run
+- flask run
+
+# Import Test Data
 
