@@ -328,3 +328,7 @@ Your flask logs should look like that if successfully used curl to populate data
 - 127.0.0.1 - - [16/Aug/2019 02:49:44] "POST /car/create HTTP/1.1" 200 -
 - 127.0.0.1 - - [16/Aug/2019 02:50:04] "POST /car/create HTTP/1.1" 200 -
 - 127.0.0.1 - - [16/Aug/2019 02:50:20] "POST /car/create HTTP/1.1" 200 -
+
+# Testing
+Simply run this command:
+- python tests.py
