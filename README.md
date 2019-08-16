@@ -44,6 +44,12 @@ Creates a car object record and saves it to database.
 - int
 - Represents id of assigned entity
 - Example: 7, 123, 15
+#### Assigned Types
+| Assigned Type        | Object           | 
+| ------------- |:-------------:|
+| 1     | Driver |
+| 2      | Branch      |
+
 #### Response codes
 - 400 : Invalid Request, Missing Parameters
 - 201 : Car created
@@ -178,6 +184,10 @@ Creates a branch object and saves it to database.
 - length 2147483647
 - Represents capacity of a branch
 - Example: 10, 25, 100
+#### Response codes
+- 400 : Invalid Request, Missing Parameters
+- 201 : Branch created
+
 #### GET /branch/get
 Gets a branch record based on supplied parameters. Returns first branch that matches parameters. Returns branch not found message with status 404 in case no branches were found.
 ##### Request Type
@@ -205,6 +215,11 @@ Gets a branch record based on supplied parameters. Returns first branch that mat
 - int
 - Represents capacity of a branch
 - Example: 15, 21, 42
+#### Response codes
+- 400 : Invalid request, Invalid parameters
+- 404 : Branch not found
+- 200 : OK
+
 #### PUT /branch/update
 Updates existing branch record. Finds the record to update based on id
 ##### Request Type
@@ -231,7 +246,25 @@ Updates existing branch record. Finds the record to update based on id
 - int
 - Represents capacity of a branch
 - Example: 15, 21, 42
+#### Response codes
+- 400 : Invalid Request, Missing Parameters
+- 404 : Branch not found
+- 200 : Branch record was updated
+
 #### DELETE /branch/delete
+Deletes existing branch record. Finds the record to update based on id
+##### Request Type
+- Method: PUT
+- Content-type: application/json
+##### Parameters
+###### id
+- required
+- int
+- Represents id of a record in a table you wish to update
+#### Response codes
+- 400 : Invalid Request, Missing Parameters
+- 404 : Branch not found
+- 200 : Branch deleted
 
 ## Driver
 ### Methods
