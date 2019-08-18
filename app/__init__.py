@@ -31,7 +31,9 @@ def create_app(config_name):
             try:
                 # Find and validate required parameters in order to create car record
                 make = helpers.check_missing('list', request_data, 'make')
+                make = helpers.validate_string(make, 'make')
                 model = helpers.check_missing('list', request_data, 'model')
+                model = helpers.validate_string(model, 'model')
                 year = helpers.check_missing('list', request_data, 'year')
                 year = helpers.validate_year(year)
                 assigned_type = helpers.check_missing('list', request_data, 'assigned_type')
