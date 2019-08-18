@@ -123,7 +123,7 @@ class CarTestCase(unittest.TestCase):
                  200)
 
         json_response = api_call(self, "GET", '/car/get', dict(id=1), 200, True)
-        self.assertEqual(json_response['make'], 'BMW')
+        self.assertEqual(json_response['make'], 'bmw')
         self.assertEqual(json_response['model'], '530d')
         self.assertEqual(json_response['year'], 2018)
         self.assertEqual(json_response['assigned_type'], 1)
@@ -134,8 +134,8 @@ class CarTestCase(unittest.TestCase):
                                                    assigned_id=1), 200)
 
         json_response = api_call(self, "GET", '/car/get', dict(id=2), 200, True)
-        self.assertEqual(json_response['make'], 'Vauxhall')
-        self.assertEqual(json_response['model'], 'Corsa')
+        self.assertEqual(json_response['make'], 'vauxhall')
+        self.assertEqual(json_response['model'], 'corsa')
         self.assertEqual(json_response['year'], 2001)
         self.assertEqual(json_response['assigned_type'], 2)
         self.assertEqual(json_response['assigned_id'], 1)
@@ -222,8 +222,8 @@ class CarTestCase(unittest.TestCase):
 
         api_call(self, "PUT", '/car/update', dict(id=1, model="Model X", year=2018), 200, True)
         json_response = api_call(self, "GET", '/car/get', dict(id=1), 200, True)
-        self.assertEqual(json_response['make'], "Tesla")
-        self.assertEqual(json_response['model'], "Model X")
+        self.assertEqual(json_response['make'], "tesla")
+        self.assertEqual(json_response['model'], "model x")
         self.assertEqual(json_response['year'], 2018)
 
         api_call(self, "PUT", '/car/update', dict(id=2, assigned_type=1, assigned_id=1), 200, True)
@@ -233,8 +233,8 @@ class CarTestCase(unittest.TestCase):
 
         api_call(self, "PUT", '/car/update', dict(id=2, make="Mercedes", model="E-Class", year=2019), 200, True)
         json_response = api_call(self, "GET", '/car/get', dict(id=2), 200, True)
-        self.assertEqual(json_response['make'], "Mercedes")
-        self.assertEqual(json_response['model'], "E-Class")
+        self.assertEqual(json_response['make'], "mercedes")
+        self.assertEqual(json_response['model'], "e-class")
         self.assertEqual(json_response['year'], 2019)
 
     def test_cant_update_car_invalid_requests(self):
@@ -434,14 +434,14 @@ class BranchTestCase(unittest.TestCase):
         api_call(self, "POST", '/branch/create', dict(city="London", postcode="E1W 3SS", capacity=5), 200)
 
         json_response = api_call(self, "GET", '/branch/get', dict(id=1), 200, True)
-        self.assertEqual(json_response['city'], 'London')
-        self.assertEqual(json_response['postcode'], 'E1W 3SS')
+        self.assertEqual(json_response['city'], 'london')
+        self.assertEqual(json_response['postcode'], 'e1w 3ss')
         self.assertEqual(json_response['capacity'], 5)
 
         api_call(self, "POST", '/branch/create', dict(city="Guildford", postcode="GU11EA", capacity=10), 200)
         json_response = api_call(self, "GET", '/branch/get', dict(id=2), 200, True)
-        self.assertEqual(json_response['city'], 'Guildford')
-        self.assertEqual(json_response['postcode'], 'GU11EA')
+        self.assertEqual(json_response['city'], 'guildford')
+        self.assertEqual(json_response['postcode'], 'gu11ea')
         self.assertEqual(json_response['capacity'], 10)
 
     def test_cant_get_branch_invalid_request(self):
@@ -488,8 +488,8 @@ class BranchTestCase(unittest.TestCase):
         api_call(self, "POST", '/branch/create', dict(city="London", postcode="E1W 3SS", capacity=5), 200)
 
         json_response = api_call(self, "GET", '/branch/get', dict(id=1), 200, True)
-        self.assertEqual(json_response['city'], 'London')
-        self.assertEqual(json_response['postcode'], 'E1W 3SS')
+        self.assertEqual(json_response['city'], 'london')
+        self.assertEqual(json_response['postcode'], 'e1w 3ss')
         self.assertEqual(json_response['capacity'], 5)
 
         json_response = api_call(self, "PUT", '/branch/update', dict(id=1, city="Guildford", postcode="GU2 8DJ",
@@ -498,8 +498,8 @@ class BranchTestCase(unittest.TestCase):
         self.assertEqual(json_response["message"], "Branch record was updated")
 
         json_response = api_call(self, "GET", '/branch/get', dict(id=1), 200, True)
-        self.assertEqual(json_response['city'], 'Guildford')
-        self.assertEqual(json_response['postcode'], 'GU2 8DJ')
+        self.assertEqual(json_response['city'], 'guildford')
+        self.assertEqual(json_response['postcode'], 'gu2 8dj')
         self.assertEqual(json_response['capacity'], 100)
 
         json_response = api_call(self, "PUT", '/branch/update', dict(id=1, capacity=90), 200, True)
@@ -507,8 +507,8 @@ class BranchTestCase(unittest.TestCase):
         self.assertEqual(json_response["message"], "Branch record was updated")
 
         json_response = api_call(self, "GET", '/branch/get', dict(id=1), 200, True)
-        self.assertEqual(json_response['city'], 'Guildford')
-        self.assertEqual(json_response['postcode'], 'GU2 8DJ')
+        self.assertEqual(json_response['city'], 'guildford')
+        self.assertEqual(json_response['postcode'], 'gu2 8dj')
         self.assertEqual(json_response['capacity'], 90)
 
         json_response = api_call(self, "PUT", '/branch/update', dict(id=1, city="Northampton", postcode="NN11 1AA",
@@ -517,8 +517,8 @@ class BranchTestCase(unittest.TestCase):
         self.assertEqual(json_response["message"], "Branch record was updated")
 
         json_response = api_call(self, "GET", '/branch/get', dict(id=1), 200, True)
-        self.assertEqual(json_response['city'], 'Northampton')
-        self.assertEqual(json_response['postcode'], 'NN11 1AA')
+        self.assertEqual(json_response['city'], 'northampton')
+        self.assertEqual(json_response['postcode'], 'nn11 1aa')
         self.assertEqual(json_response['capacity'], 5)
 
     def test_cant_update_branch_invalid_requests(self):
@@ -685,9 +685,9 @@ class DriverTestCase(unittest.TestCase):
                                                       dob="11/05/1950"), 200)
 
         json_response = api_call(self, "GET", '/driver/get', dict(id=1), 200, True)
-        self.assertEqual(json_response['first_name'], 'Bill')
-        self.assertEqual(json_response['last_name'], 'Gates')
-        self.assertEqual(json_response['middle_name'], 'John')
+        self.assertEqual(json_response['first_name'], 'bill')
+        self.assertEqual(json_response['last_name'], 'gates')
+        self.assertEqual(json_response['middle_name'], 'john')
         self.assertEqual(json_response['dob'], '11/05/1950')
 
     def test_cant_get_driver_invalid_request(self):
@@ -752,9 +752,9 @@ class DriverTestCase(unittest.TestCase):
         self.assertEqual(json_response["message"], "Driver record was updated")
 
         json_response = api_call(self, "GET", '/driver/get', dict(id=1), 200, True)
-        self.assertEqual(json_response['first_name'], 'John')
-        self.assertEqual(json_response['middle_name'], 'Testovich')
-        self.assertEqual(json_response['last_name'], 'Malkovich')
+        self.assertEqual(json_response['first_name'], 'john')
+        self.assertEqual(json_response['middle_name'], 'testovich')
+        self.assertEqual(json_response['last_name'], 'malkovich')
 
         json_response = api_call(self, "PUT", '/driver/update', dict(id=1, first_name="Tesla", middle_name="Test",
                                                                      last_name="Nicola", dob="12/12/2000"), 200, True)
@@ -762,9 +762,9 @@ class DriverTestCase(unittest.TestCase):
         self.assertEqual(json_response["message"], "Driver record was updated")
 
         json_response = api_call(self, "GET", '/driver/get', dict(id=1), 200, True)
-        self.assertEqual(json_response['first_name'], 'Tesla')
-        self.assertEqual(json_response['middle_name'], 'Test')
-        self.assertEqual(json_response['last_name'], 'Nicola')
+        self.assertEqual(json_response['first_name'], 'tesla')
+        self.assertEqual(json_response['middle_name'], 'test')
+        self.assertEqual(json_response['last_name'], 'nicola')
         self.assertEqual(json_response['dob'], "12/12/2000")
 
     def test_cant_update_driver_invalid_requests(self):
@@ -929,11 +929,11 @@ class HelpersTestCase(unittest.TestCase):
         """ Good passing validation tests for string function"""
         good_string = "Shmlonathan"
         validated = helpers.validate_string(good_string, 'name')
-        self.assertEqual(validated, "Shmlonathan")
+        self.assertEqual(validated, "shmlonathan")
 
         good_string = "Shmlonika"
         validated = helpers.validate_string(good_string, 'name')
-        self.assertEqual(validated, "Shmlonika")
+        self.assertEqual(validated, "shmlonika")
 
     def test_validate_string_bad(self):
         """ Bad not passing validation tests for string function"""
@@ -948,11 +948,11 @@ class HelpersTestCase(unittest.TestCase):
         """ Good passing validation tests for postcode function"""
         good_postcode = "GU13GX"
         validated = helpers.validate_postcode(good_postcode)
-        self.assertEqual(validated, "GU13GX")
+        self.assertEqual(validated, "gu13gx")
 
         good_postcode = "E1W 3SS"
         validated = helpers.validate_postcode(good_postcode)
-        self.assertEqual(validated, "E1W 3SS")
+        self.assertEqual(validated, "e1w 3ss")
 
     def test_validate_postcode_bad(self):
         """ Bad not passing validation tests for string function"""

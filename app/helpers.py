@@ -70,7 +70,7 @@ def validate_string(string, field):
     """
     if not isinstance(string, str):
         raise Exception({"status_code": 400, "message": "Invalid " + field})
-    return string
+    return string.lower()
 
 
 def validate_postcode(postcode):
@@ -87,7 +87,7 @@ def validate_postcode(postcode):
     pattern = re.compile(UK_POSTCODE_PATTERN)  # check if matches postcode pattern
     if not pattern.match(postcode):
         raise Exception({"status_code": 400, "message": "Invalid postcode"})
-    return postcode.upper()
+    return postcode.lower()
 
 
 def validate_dob(dob):
